@@ -46,8 +46,8 @@ var limiter = new RateLimit({
 app.use(limiter);
 
 var https = require('https');
-var privateKey  = fs.readFileSync('/Users/andersonandredossantos/Documents/Pos-FIAP/seguranca_Aplicacoes/projeto-final/node-product-api/sslcert/selfsigned.key', 'utf8');
-var certificate = fs.readFileSync('/Users/andersonandredossantos/Documents/Pos-FIAP/seguranca_Aplicacoes/projeto-final/node-product-api/sslcert/selfsigned.crt', 'utf8');
+var privateKey  = fs.readFileSync('./node-product-api/sslcert/selfsigned.key', 'utf8');
+var certificate = fs.readFileSync('./node-product-api/sslcert/selfsigned.crt', 'utf8');
 
 var credentials = {key: privateKey, cert: certificate};
 
@@ -58,11 +58,13 @@ httpsServer.listen(port);
 const checkScopes = requiredScopes('openid');
 
 
-app.get('/', async (req, res, next) => {
+app.get('/', checkJwt, checkScopes, async (req, res, next)  => {
     res.send('Hello World!')
   });
 
-app.get('/products', async (req, res, next) => { 
+  
+
+app.get('/products', checkJwt, checkScopes, async (req, res, next) => { 
     var resp = await db.getAllProducts();
     res.status(200).json(resp);
 });
@@ -183,11 +185,9 @@ app.post('/login', async (req, res, next) => {
     }
     console.log("Erro 401 - Unautorized!");
     return res.status(401).send('Login inválido!'); 
-})    
+});    
 
 app.post('/logout', function(req, res) { 
     console.log("Fez logout e cancelou o token!");
     res.status(200).send({ auth: false, token: null }); 
 });
-
-

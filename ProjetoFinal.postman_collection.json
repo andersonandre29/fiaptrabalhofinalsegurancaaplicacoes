@@ -1,10 +1,142 @@
 {
 	"info": {
-		"_postman_id": "1ce339e9-16de-47c3-9ab8-3bc29bcfd039",
+		"_postman_id": "db98ed32-b1e2-4355-a4ab-82e32448211d",
 		"name": "ProjetoFinal ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "POST login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set variable token with generated token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"anderson\",\n    \"password\": \"Aa@12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:3001/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:3001/users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set variable token with generated token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"token\", jsonData.token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"anderson\",\n    \"password\": \"Aa@12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:3001/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:3001/logout",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "products",
 			"request": {
@@ -59,8 +191,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3001/products",
-					"protocol": "http",
+					"raw": "https://localhost:3001/products",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -87,8 +219,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3001/products/acfda577-c36e-465d-9984-2ad98b7f642c",
-					"protocol": "http",
+					"raw": "https://localhost:3001/products/acfda577-c36e-465d-9984-2ad98b7f642c",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -107,8 +239,8 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3001/products/acfda577-c36e-465d-9984-2ad98b7f642c",
-					"protocol": "http",
+					"raw": "https://localhost:3001/products/acfda577-c36e-465d-9984-2ad98b7f642c",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
